@@ -1,13 +1,27 @@
 # igroot 组件库
 
-基于 React v16.8 及 antd 4.0 以上版本，使用时需注意
+## 链接
 
-### 使用
+[首页](http://fe.baishancloud.com/components/)
+
+## 支持环境
+
+- React v16.8
+- antd v4.0
+
+### 安装
 
 ```bash
-// 安装依赖
 yarn add bsy-components
 
 // 使用组件
 import { SelectTags } from 'bsy-components';
+```
+
+### 示例
+
+```jsx harmony
+import { SelectTags } from 'bsy-components';
+
+export default () => <SelectTags />;
 ```

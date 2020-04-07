@@ -1,6 +1,13 @@
 {
   "private": true,
+  "version": "0.0.0",
   "name": "bsy-components",
+  "description": "新版igroot组件库",
+  "repository": "https://github.com/baishancloudFE/bsy-components",
+  "authors": {
+    "name": "hanguihe",
+    "email": "592029487@qq.com"
+  },
   "files": [
     "/lib",
     "/es",
@@ -12,7 +19,7 @@
   "scripts": {
     "init": "rm -rf node_modules dist es lib && yarn install && yarn run start",
     "start": "dumi dev",
-    "docs:build": "dumi build",
+    "docs:build": "dum,i build",
     "build": "father build",
     "clean": "lerna clean --yes",
     "bootstrap": "lerna bootstrap",
@@ -33,6 +40,7 @@
   },
   "devDependencies": {
     "@types/vfile-message": "^2.0.0",
+    "@umijs/hooks": "^1.9.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.5",
     "antd": "^4.1.0",
@@ -50,8 +58,5 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "yorkie": "^2.0.0"
-  },
-  "dependencies": {
-    "@umijs/hooks": "^1.9.0"
   }
 }

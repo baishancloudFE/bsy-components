@@ -21,3 +21,7 @@
 /.umi-production
 /.umi-test
 /.env.local
+
+# build
+/es
+/lib
