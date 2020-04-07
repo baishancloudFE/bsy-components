@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Tree } from 'antd';
+import { Tree, Input } from 'antd';
 import { useDebounceFn } from '@umijs/hooks';
 import {
   AntTreeNodeCheckedEvent,
@@ -32,7 +32,7 @@ const Search = Input.Search;
 const SearchTree = <T, U extends { [key: string]: any } = {}>(
   props: SearchTreeProps<T, U>,
 ) => {
-  const [expandedKeys, setExpandedKeys] = useState<Array<React.ReactText>>([]);
+  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 
@@ -45,52 +45,36 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
     childNodeHide,
     checkStrictly,
     placeholder,
+    onCheck,
     ...rest
   } = props;
 
-  const onExpand = (keys: Array<React.ReactText>) => {
+  const onExpand = (keys: string[]) => {
     setExpandedKeys(keys);
     setAutoExpandParent(false);
   };
 
-  // 节点选择事件
-  const nodeCheck = (
-    keys: Array<React.ReactText>,
-    info: AntTreeNodeCheckedEvent,
-  ) => {
-    const { checked } = info;
-    const { eventKey } = info.node.props;
-
-    if (typeof props.onCheck === 'function') {
-      return props.onCheck(
-        keys,
-        eventKey as React.ReactText,
-        checked as boolean,
-      );
-    }
-  };
-
   const { run: onChange } = useDebounceFn(value => {
     if (!value || value === '') {
-      setSearchValue(value);
+      setSearchValue('');
       setExpandedKeys([]);
       return setAutoExpandParent(false);
     }
     const keys = dataList
       .map(item => {
         if (typeof item.title === 'string' && item.title.indexOf(value) > -1) {
-          return getParentKey(item.key, dataSource);
+          return getParentKey(item.key as string, dataSource);
         }
-        return '';
+        return null;
       })
       .filter((item, i, self) => item && self.indexOf(item) === i);
 
-    setExpandedKeys(keys);
+    setExpandedKeys(keys as string[]);
     setSearchValue(value);
     setAutoExpandParent(true);
   }, 300);
 
-  const loop = (data: Array<TreeNodeNormal>): Array<TreeNodeNormal> =>
+  const loop = (data: Array<TreeNodeNormal>) =>
     data.map(item => {
       const index =
         typeof item.title === 'string' ? item.title.indexOf(searchValue) : 0;
@@ -112,32 +96,44 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
         );
 
       if (item.children) {
-        return index > -1
-          ? {
-              key: item.key,
-              title: title,
-              disableCheckbox: !parentCheckedAble,
-              children: loop(item.children),
-            }
-          : {
-              style: parentNodeHide ? { display: 'none' } : {},
-              key: item.key,
-              title: title,
-              disableCheckbox: !parentCheckedAble,
-              children: loop(item.children),
-            };
+        return (
+          <TreeNode
+            key={item.key}
+            title={title}
+            disableCheckbox={!parentCheckedAble}
+            style={index > -1 || !parentNodeHide ? {} : { display: 'none' }}
+          >
+            {loop(item.children)}
+          </TreeNode>
+        );
       }
-      return index > -1
-        ? { key: item.key, title: title }
-        : {
-            style: childNodeHide ? { display: 'none' } : {},
-            key: item.key,
-            title: title,
-          };
+
+      return (
+        <TreeNode
+          style={index > -1 || !childNodeHide ? {} : { display: 'none' }}
+          key={item.key}
+          title={title}
+        />
+      );
     });
 
-  // TODO 因重载了onCheck方法报错 暂无解决思路
+  // 节点选择事件
+  const nodeCheck = (keys: string[], info: AntTreeNodeCheckedEvent) => {
+    if (typeof onCheck === 'function') {
+      return onCheck(
+        keys,
+        info.node.props.eventKey as string,
+        info.checked as boolean,
+      );
+    }
+  };
+
+  useEffect(() => {
+    setDataList(generateList(dataSource));
+  }, [dataSource]);
+
   const tree = () => {
+    // TODO 因重载了onCheck方法报错 暂无解决思路
     return (
       // @ts-ignore
       <Tree
@@ -147,54 +143,47 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
         onExpand={onExpand}
         expandedKeys={expandedKeys}
         autoExpandParent={autoExpandParent}
-        treeData={loop(dataSource)}
-      />
+      >
+        {loop(dataSource)}
+      </Tree>
     );
   };
 
-  useEffect(() => {
-    setDataList(generateList(dataSource));
-  }, [dataSource]);
-
   return (
-    <>
+    <div>
       <Search
         style={{ marginBottom: 8 }}
         placeholder={placeholder}
         onChange={e => onChange(e.target.value)}
       />
       {tree()}
-    </>
+    </div>
   );
 };
 
-function getParentKey(
-  key: React.ReactText,
-  tree: Array<TreeNodeNormal>,
-): React.ReactText {
-  let parentKey: React.ReactText = '';
-
+function getParentKey(key: string, tree: Array<TreeNodeNormal>): string | null {
+  let parentKey: string | null = null;
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
     if (node.children) {
       if (node.children.some(item => item.key === key)) {
-        parentKey = node.key;
+        parentKey = node.key as string;
       } else if (getParentKey(key, node.children)) {
         parentKey = getParentKey(key, node.children);
       }
     }
   }
-
   return parentKey;
 }
 
-function generateList(list: Array<TreeNodeNormal>): Array<GenerateData> {
+function generateList(list: Array<TreeNodeNormal>) {
   let dataList: Array<GenerateData> = [];
 
   const loop = (data: Array<TreeNodeNormal>) => {
     for (let i = 0; i < data.length; i++) {
-      const node: TreeNodeNormal = data[i];
-      dataList.push({ key: node.key, title: node.title });
+      const node = data[i];
+      const key = node.key;
+      dataList.push({ key, title: node.title });
       if (node.children) {
         loop(node.children);
       }
@@ -204,6 +193,8 @@ function generateList(list: Array<TreeNodeNormal>): Array<GenerateData> {
   return dataList;
 }
 
+export default SearchTree;
+
 SearchTree.defaultProps = {
   checkable: true,
   checkStrictly: true,
@@ -212,5 +203,3 @@ SearchTree.defaultProps = {
   childNodeHide: true,
   placeholder: 'Search',
 };
-
-export default SearchTree;

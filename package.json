@@ -18,7 +18,7 @@
   "scripts": {
     "init": "rm -rf node_modules dist es lib && yarn install && yarn run start",
     "start": "dumi dev",
-    "docs:build": "dum,i build",
+    "docs:build": "dumi build",
     "build": "father build",
     "clean": "lerna clean --yes",
     "bootstrap": "lerna bootstrap",

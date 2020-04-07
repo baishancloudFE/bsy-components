@@ -29,11 +29,12 @@ export default Demo;
 
 ### 参数
 
-| 参数    | 说明                   | 类型    | 默认值        |
-| :------ | :--------------------- | :------ | :------------ |
-| open?   | 是否开启 SSO 登录      | boolean | true          |
-| domain! | SSO 平台配置的主域名   | string  | -             |
-| config  | SSO 对应的四个接口地址 | Config  | 初始 SSO 配置 |
+| 参数     | 说明                   | 类型            | 默认值        |
+| :------- | :--------------------- | :-------------- | :------------ |
+| open?    | 是否开启 SSO 登录      | boolean         | true          |
+| domain!  | SSO 平台配置的主域名   | string          | -             |
+| config   | SSO 对应的四个接口地址 | Config          | 初始 SSO 配置 |
+| loading? | Loading 组件           | React.ReactNode | -             |
 
 ### Config
 
