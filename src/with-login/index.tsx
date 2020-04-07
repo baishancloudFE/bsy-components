@@ -1,8 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { RouterParams, ViewResponse, WithLoginProps } from './type';
+import { Spin } from 'antd';
+
+interface ApiData {
+  resource: string;
+  api_type: number;
+  verb: number;
+}
+
+interface MenuData {
+  key: string;
+  to: string;
+  name: string;
+  iconType?: string;
+  subs?: Array<MenuData>;
+}
+
+interface ViewResponseData {
+  jwtToken: string;
+  name: string;
+  cname: string;
+  menu: Array<MenuData>;
+  api: Array<ApiData>;
+}
+
+interface ViewResponse {
+  code: number;
+  data: ViewResponseData;
+}
+
+interface RouterParams {
+  [propName: string]: string;
+}
+
+interface LoginConfig {
+  view: string;
+  login: string;
+  logout: string;
+  validate: string;
+}
+
+interface WithLoginProps {
+  open?: boolean;
+  domain: string;
+  config: LoginConfig;
+  loading: React.ReactNode;
+  children: React.ReactChildren;
+}
 
 const WithLogin: React.FC<WithLoginProps> = ({
   open,
+  loading: Component,
   config,
   domain,
   children,
@@ -95,7 +142,7 @@ const WithLogin: React.FC<WithLoginProps> = ({
   }, []);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <div>{Component}</div>;
   }
 
   return <div>{children}</div>;
@@ -118,6 +165,19 @@ function getQueryParams(): RouterParams {
 
 WithLogin.defaultProps = {
   open: true,
+  loading: (
+    <div
+      style={{
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Spin spinning={true} />
+    </div>
+  ),
   config: {
     view: '/account/user/view',
     login: '/account/user/login',
