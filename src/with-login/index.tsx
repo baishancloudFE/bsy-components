@@ -94,7 +94,11 @@ const WithLogin: React.FC<WithLoginProps> = ({
           localStorage.setItem('menu', JSON.stringify(data.menu));
           localStorage.setItem('user_cname', data.cname);
           localStorage.setItem('user_ename', data.name);
-          return (window.location.href = window.location.origin);
+
+          return (window.location.href = window.location.href.substring(
+            0,
+            window.location.href.indexOf('?'),
+          ));
         }
         console.error('token校验异常，即将退出登录');
         return action('logout');
