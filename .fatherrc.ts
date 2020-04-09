@@ -14,7 +14,11 @@ export default {
     ],
     [
       'import',
-      { libraryName: '@umijs/hooks', libraryDirectory: 'es' },
+      {
+        libraryName: '@umijs/hooks',
+        libraryDirectory: 'es',
+        camel2DashComponentName: false,
+      },
       'umi-hooks',
     ],
   ],
