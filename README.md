@@ -21,7 +21,7 @@ import { SelectTags } from 'bsy-components';
 ### 示例
 
 ```jsx harmony
-import { SelectTags } from 'bsy-components';
+import { SelectTags } from 'bsy-show';
 
 export default () => <SelectTags />;
 ```

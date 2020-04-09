@@ -1,8 +1,6 @@
 ---
-title: WithLogin
 group:
   title: 其他组件
-  path: /with-login
 ---
 
 # WithLogin
@@ -13,9 +11,9 @@ group:
 
 ```js
 import React from 'react';
-import { WithLogin } from 'bsy-components';
+import { WithLogin } from 'bsy-show';
 
-const Demo = ({ children }) => {
+const Index = ({ children }) => {
   // do something...
   return (
     <WithLogin open={false} domain="https://www.baishancloud.com">
@@ -24,7 +22,7 @@ const Demo = ({ children }) => {
   );
 };
 
-export default Demo;
+export default Index;
 ```
 
 ### 参数

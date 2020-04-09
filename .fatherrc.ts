@@ -1,9 +1,21 @@
 export default {
-  entry: 'src/index.ts',
-  esm: {
-    type: 'babel',
-    importLibToEs: true,
-  },
+  entry: 'src/index.tsx',
+  esm: 'babel',
   cjs: 'babel',
-  extraBabelPlugins: [['import', { libraryName: 'antd', style: true }]],
+  umd: {
+    name: 'asd',
+    minFile: false,
+  },
+  extraBabelPlugins: [
+    [
+      'import',
+      { libraryName: 'antd', libraryDirectory: 'es', style: true },
+      'antd',
+    ],
+    [
+      'import',
+      { libraryName: '@umijs/hooks', libraryDirectory: 'es' },
+      'umi-hooks',
+    ],
+  ],
 };

@@ -1,8 +1,6 @@
 ---
-title: SearchTree
 group:
   title: 数据展示
-  path: /search-tree
 ---
 
 # SearchTree
@@ -11,7 +9,7 @@ group:
 
 ### Examples
 
-<code src="./demo/demo.jsx" />
+<code src="../../src/search-tree/demo/index.jsx" />
 
 ### 参数
 

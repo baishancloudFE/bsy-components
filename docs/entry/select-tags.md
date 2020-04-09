@@ -1,8 +1,6 @@
 ---
-title: SelectTags
 group:
   title: 数据录入
-  path: /select-tags
 ---
 
 # SelectTags
@@ -11,7 +9,7 @@ group:
 
 ### Examples
 
-<code src="./demo/demo1.jsx" />
+<code src="../../src/select-tags/demo/index.jsx" />
 
 ### 参数
 

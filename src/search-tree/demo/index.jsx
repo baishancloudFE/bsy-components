@@ -45,7 +45,7 @@ const data = [
   },
 ];
 
-const Demo = () => {
+const Index = () => {
   const onCheck = (keys, key, checked) => {
     console.log(keys, key, checked);
   };
@@ -60,4 +60,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default Index;
