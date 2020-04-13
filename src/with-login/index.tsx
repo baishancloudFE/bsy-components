@@ -42,15 +42,20 @@ interface LoginConfig {
 interface WithLoginProps {
   open?: boolean;
   domain: string;
-  config: LoginConfig;
-  loading: React.ReactNode;
-  children: React.ReactChildren;
+  config?: LoginConfig;
+  loading?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const WithLogin: React.FC<WithLoginProps> = ({
-  open,
+  open = true,
   loading: Component,
-  config,
+  config = {
+    view: '/account/user/view',
+    login: '/account/user/login',
+    logout: '/account/user/logout',
+    validate: '/account/token/validate',
+  },
   domain,
   children,
 }) => {
@@ -119,7 +124,6 @@ const WithLogin: React.FC<WithLoginProps> = ({
       .then(res => res.json())
       .then(({ code }) => {
         if (code === 0) {
-          console.log('token校验通过');
           return setLoading(false);
         }
         console.error('token校验异常，即将退出登录');
@@ -137,7 +141,16 @@ const WithLogin: React.FC<WithLoginProps> = ({
    * 没有token时直接进行重新登录操作
    */
   useEffect(() => {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (
+      (!localStorage.getItem('user_cname') ||
+        !localStorage.getItem('user_ename') ||
+        !localStorage.getItem('menu')) &&
+      token
+    ) {
+      return action('logout');
+    }
+
     if (token) {
       return validateToken(token);
     }
@@ -168,7 +181,6 @@ function getQueryParams(): RouterParams {
 }
 
 WithLogin.defaultProps = {
-  open: true,
   loading: (
     <div
       style={{
@@ -182,12 +194,6 @@ WithLogin.defaultProps = {
       <Spin spinning={true} />
     </div>
   ),
-  config: {
-    view: '/account/user/view',
-    login: '/account/user/login',
-    logout: '/account/user/logout',
-    validate: '/account/token/validate',
-  },
 };
 
 export default WithLogin;
