@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactText } from 'react';
 import { Tree, Input } from 'antd';
 import { useDebounceFn } from '@umijs/hooks';
-import {
-  AntTreeNodeCheckedEvent,
-  TreeNodeNormal,
-  TreeProps,
-} from 'antd/es/tree/Tree';
+import { TreeNodeNormal, TreeProps } from 'antd/es/tree/Tree';
 
 export interface GenerateData {
   key: React.ReactText;
@@ -49,19 +45,19 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
     ...rest
   } = props;
 
-  const onExpand = (keys: string[]) => {
+  const onExpand = (keys: any[]) => {
     setExpandedKeys(keys);
     setAutoExpandParent(false);
   };
 
-  const { run: onChange } = useDebounceFn(value => {
+  const { run: onChange } = useDebounceFn((value) => {
     if (!value || value === '') {
       setSearchValue('');
       setExpandedKeys([]);
       return setAutoExpandParent(false);
     }
     const keys = dataList
-      .map(item => {
+      .map((item) => {
         if (typeof item.title === 'string' && item.title.indexOf(value) > -1) {
           return getParentKey(item.key as string, dataSource);
         }
@@ -75,7 +71,7 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
   }, 300);
 
   const loop = (data: Array<TreeNodeNormal>) =>
-    data.map(item => {
+    data.map((item) => {
       const index =
         typeof item.title === 'string' ? item.title.indexOf(searchValue) : 0;
       const beforeStr =
@@ -118,7 +114,7 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
     });
 
   // 节点选择事件
-  const nodeCheck = (keys: string[], info: AntTreeNodeCheckedEvent) => {
+  const nodeCheck = (keys: any, info: any) => {
     if (typeof onCheck === 'function') {
       return onCheck(
         keys,
@@ -154,7 +150,7 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
       <Search
         style={{ marginBottom: 8 }}
         placeholder={placeholder}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
       {tree()}
     </div>
@@ -166,7 +162,7 @@ function getParentKey(key: string, tree: Array<TreeNodeNormal>): string | null {
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
     if (node.children) {
-      if (node.children.some(item => item.key === key)) {
+      if (node.children.some((item) => item.key === key)) {
         parentKey = node.key as string;
       } else if (getParentKey(key, node.children)) {
         parentKey = getParentKey(key, node.children);
