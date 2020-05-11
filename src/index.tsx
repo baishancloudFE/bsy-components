@@ -6,3 +6,6 @@ export { default as SelectTags } from './select-tags';
 
 // 其他
 export { default as WithLogin } from './with-login';
+
+// 导出Excel
+export { default as ExportExcel } from './export-excel';
