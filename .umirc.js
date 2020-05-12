@@ -2,7 +2,7 @@ export default {
   title: 'igroot',
   logo: 'http://fe.baishancloud.com/image/page-logo.png',
   hash: true,
-  // base: '/show',
+  base: '/components',
   publicPath: './',
   menus: {
     '/': [

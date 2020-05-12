@@ -24,7 +24,7 @@ const rules = {
 const Demo = () => {
   const download = () => {
     ExportExcel.open({
-      fileName: '测试下载demo',
+      filename: '测试下载demo',
       rules,
       data,
     });
