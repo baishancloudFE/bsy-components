@@ -27,6 +27,7 @@ const Demo = () => {
       filename: '测试下载demo',
       rules,
       data,
+      screening: false,
     });
   };
 

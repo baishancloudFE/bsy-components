@@ -51,7 +51,6 @@ const ChoseModal: React.FC<ChoseModalProps> = ({
   };
 
   const onSubmit = () => {
-    console.log(checkedList);
     const keys = checkedList.reduce((res: any, key) => {
       const str = String(key);
       if (str in rules) {
@@ -59,7 +58,6 @@ const ChoseModal: React.FC<ChoseModalProps> = ({
       }
       return res;
     }, {});
-    console.log(keys);
     download(keys, data, filename);
     close();
   };

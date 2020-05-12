@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ChoseModal from './ChoseModal';
+import download from './download';
 
 export default {
   open: function (config: any) {
+    if (config.screening === false) {
+      return download(config.rules, config.data, config.filename);
+    }
+
     const div = document.createElement('div');
     document.body.appendChild(div);
 
