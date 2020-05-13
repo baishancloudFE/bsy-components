@@ -9,3 +9,6 @@ export { default as WithLogin } from './with-login';
 
 // 导出Excel
 export { default as ExportExcel } from './export-excel';
+
+// 导入Excel
+export { default as ImportExcel } from './import-excel';
