@@ -35,11 +35,13 @@ const ImportExcel: React.FC<ImportExcelProps> = ({
 
       const result: any[] = [];
       data.forEach((arr: Array<string | number>) => {
-        const row: { [key: string]: any } = {};
-        relation.forEach(({ key, index }) => {
-          row[key] = arr[index];
-        });
-        result.push(row);
+        if (arr.length > 0) {
+          const row: { [key: string]: any } = {};
+          relation.forEach(({ key, index }) => {
+            row[key] = arr[index];
+          });
+          result.push(row);
+        }
       });
       message.success('导入数据成功！');
       return result;
