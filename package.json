@@ -42,7 +42,7 @@
     "@ant-design/icons": "^4.1.0",
     "@umijs/hooks": "^1.9.2",
     "@umijs/preset-react": "^1.4.20",
-    "antd": "^4.2.0",
+    "antd": "^4.2.2",
     "classnames": "^2.2.6",
     "dumi": "^1.0.23",
     "father-build": "^1.18.0",

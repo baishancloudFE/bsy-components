@@ -1,9 +1,11 @@
+const ASSET_PATH = process.env.NODE_ENV === 'development' ? '/' : './';
+
 export default {
   title: 'igroot',
   logo: 'http://fe.baishancloud.com/image/page-logo.png',
   hash: true,
   base: '/components',
-  publicPath: './',
+  publicPath: ASSET_PATH,
   menus: {
     '/': [
       {
