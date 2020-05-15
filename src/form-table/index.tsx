@@ -28,13 +28,14 @@ interface Columns extends ColumnProps<FormListData> {
 interface FormTableProps extends Omit<TableProps<FormListData>, 'columns'> {
   name: string;
   columns: Columns[];
+  dynamic?: boolean;
 }
 
 const { Item } = Form;
 const { Option } = Select;
 
 const FormTable: React.FC<FormTableProps> = (props) => {
-  const { name, columns } = props;
+  const { name, columns, dynamic = true } = props;
 
   const formColumns = useCallback(
     (remove) => {
@@ -84,23 +85,24 @@ const FormTable: React.FC<FormTableProps> = (props) => {
         );
         array.push(arrItem);
       });
-
-      array.push({
-        dataIndex: 'delete',
-        title: '操作',
-        width: '60px',
-        align: 'center',
-        render: (text, row) => (
-          <Button
-            size="small"
-            danger={true}
-            ghost={true}
-            onClick={() => remove(row.name)}
-          >
-            删除
-          </Button>
-        ),
-      });
+      if (dynamic) {
+        array.push({
+          dataIndex: 'delete',
+          title: '操作',
+          width: '60px',
+          align: 'center',
+          render: (text, row) => (
+            <Button
+              size="small"
+              danger={true}
+              ghost={true}
+              onClick={() => remove(row.name)}
+            >
+              删除
+            </Button>
+          ),
+        });
+      }
 
       return array;
     },
@@ -120,15 +122,17 @@ const FormTable: React.FC<FormTableProps> = (props) => {
             columns={formColumns(remove)}
             dataSource={fields}
           />
-          <Button
-            className="bsy-form-table-add-button"
-            size="small"
-            type="dashed"
-            block={true}
-            onClick={() => add()}
-          >
-            添加一行
-          </Button>
+          {dynamic && (
+            <Button
+              className="bsy-form-table-add-button"
+              size="small"
+              type="dashed"
+              block={true}
+              onClick={() => add()}
+            >
+              添加一行
+            </Button>
+          )}
         </React.Fragment>
       )}
     </Form.List>

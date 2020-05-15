@@ -13,10 +13,11 @@ group:
 
 ### 参数
 
-| 参数    | 说明        | 类型      | 默认值 |
-| ------- | ----------- | --------- | :----: |
-| name    | 表单项 name | string    |   -    |
-| columns | 列配置      | Columns[] |   -    |
+| 参数    | 说明         | 类型      | 默认值 |
+| ------- | ------------ | --------- | :----: |
+| name    | 表单项 name  | string    |   -    |
+| columns | 列配置       | Columns[] |   -    |
+| dynamic | 是否动态增删 | boolean   |  true  |
 
 ### Columns
 
