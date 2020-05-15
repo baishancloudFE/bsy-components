@@ -10,6 +10,7 @@ group:
 ### Examples
 
 <code src="../../src/form-table/demo/index.jsx" />
+<code src="../../src/form-table/demo/demo2.jsx" />
 
 ### 参数
 
