@@ -25,7 +25,8 @@
     "bootstrap": "lerna bootstrap",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "publish": "npm run build && npm version patch && npm publish"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
