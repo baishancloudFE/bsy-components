@@ -5,6 +5,7 @@ export { default as TextFormItem } from './text-form-item';
 // 数据录入
 export { default as SelectTags } from './select-tags';
 export { default as FormTable } from './form-table';
+export { default as FilterForm } from './filter-form';
 
 // 其他
 export { default as WithLogin } from './with-login';
