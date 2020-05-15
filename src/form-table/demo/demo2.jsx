@@ -1,3 +1,8 @@
+/**
+ * title: 关闭动态属性
+ * desc: 当使用onChange事件时，会在基础的value参数上增加index参数(当前行索引)
+ */
+
 import React from 'react';
 import { Button, Form } from 'antd';
 import { FormTable } from 'bsy-components';
