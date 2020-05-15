@@ -18,7 +18,8 @@ group:
 | loading    | 加载状态                               | boolean           |                                  -                                  |
 | itemLayout | 表单项布局方式                         | ItemLayout        |                             ItemLayout                              |
 | extra      | 操作按钮旁其他组件                     | React.ReactNode[] |                                  -                                  |
-| form       | 经 Form.useForm() 创建的 form 控制实例 | React.ReactNode[] | [FormInstance](https://ant.design/components/form-cn/#FormInstance) |
+| form       | 经 Form.useForm() 创建的 form 控制实例 | FormInstance      | [FormInstance](https://ant.design/components/form-cn/#FormInstance) |
+| didSubmit  | 组件加载完成后是否执行提交事件         | boolean           |                                false                                |
 
 其余参数与 Form 一致
 
