@@ -10,6 +10,7 @@ group:
 ### Examples
 
 <code src="../../src/form-table/demo/index.jsx" />
+<code src="../../src/form-table/demo/demo2.jsx" />
 
 ### 参数
 
@@ -23,7 +24,7 @@ group:
 
 ```typescript
 interface Columns {
-  type: 'text' | 'number' | 'date' | 'select';
+  type: 'text' | 'input' | 'number' | 'date' | 'select';
   required?: boolean;
   props?: { [key: string]: any } | any;
   options?: Array<{ label: React.ReactText; value: string | number }>;
@@ -32,9 +33,21 @@ interface Columns {
 
 | 参数     | 说明               | 默认值 |
 | -------- | ------------------ | :----: |
-| type     | 文本类型           |   -    |
+| type     | ComponentType      |   -    |
 | required | 是否必填           |   -    |
 | props    | 传递给控件的 props |   -    |
 | options  | 下拉列表的值组合   |   -    |
 
 其余配置与 antd 的 columns 配置相同
+
+### 目前支持的控件类型
+
+```typescript
+interface ComponentType {
+  text: TextFormItem;
+  input: Input;
+  number: InputNumber;
+  date: DatePicker;
+  select: Select;
+}
+```

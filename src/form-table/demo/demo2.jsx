@@ -1,5 +1,6 @@
 /**
- * title: 基本用法
+ * title: 关闭动态属性
+ * desc: 当使用onChange事件时，会在基础的value参数上增加index参数(当前行索引)
  */
 
 import React from 'react';
@@ -19,11 +20,7 @@ const Demo = () => {
       title: '姓名',
       width: 120,
       align: 'center',
-      type: 'input',
-      props: {
-        autoComplete: 'off',
-      },
-      required: true,
+      type: 'text',
     },
     {
       dataIndex: 'age',
@@ -46,6 +43,7 @@ const Demo = () => {
       props: {
         showSearch: true,
         allowClear: true,
+        onChange: (value, index) => console.log(value, index),
       },
       options: [
         { label: '北京', value: 'bj' },
@@ -53,22 +51,20 @@ const Demo = () => {
         { label: '厦门', value: 'xm' },
       ],
     },
-    {
-      dataIndex: 'time',
-      title: '生效时间',
-      width: 120,
-      align: 'center',
-      type: 'date',
-      props: {
-        style: { width: '100%' },
-        format: 'YYYY/MM/DD',
-      },
-    },
   ];
 
   return (
-    <Form form={form} onFinish={onFinish}>
-      <FormTable name="users" columns={columns} />
+    <Form
+      form={form}
+      onFinish={onFinish}
+      initialValues={{
+        users: [
+          { name: '胡彦斌', age: 32, address: 'bj' },
+          { name: '胡彦祖', age: 42, address: 'hz' },
+        ],
+      }}
+    >
+      <FormTable name="users" columns={columns} dynamic={false} />
 
       <Button htmlType="submit" type="primary">
         提交
