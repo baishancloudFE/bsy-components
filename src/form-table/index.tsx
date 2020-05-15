@@ -5,7 +5,7 @@ import { FormTableProps, FormListColumns } from './interface';
 import './style.less';
 
 const FormTable: React.FC<FormTableProps> = (props) => {
-  const { name, dynamic = true } = props;
+  const { name, dynamic = true, template = {} } = props;
 
   const columns = useColumns(props.columns);
 
@@ -56,7 +56,7 @@ const FormTable: React.FC<FormTableProps> = (props) => {
               size="small"
               type="dashed"
               block={true}
-              onClick={() => add()}
+              onClick={() => add(template)}
             >
               添加一行
             </Button>

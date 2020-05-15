@@ -28,4 +28,5 @@ export interface FormTableProps
   name: string;
   columns: Columns[];
   dynamic?: boolean;
+  template?: any;
 }

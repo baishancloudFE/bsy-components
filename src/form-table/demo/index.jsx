@@ -68,7 +68,15 @@ const Demo = () => {
 
   return (
     <Form form={form} onFinish={onFinish}>
-      <FormTable name="users" columns={columns} />
+      <FormTable
+        name="users"
+        columns={columns}
+        template={{
+          name: '杀马特',
+          age: 91,
+          address: 'xm',
+        }}
+      />
 
       <Button htmlType="submit" type="primary">
         提交
