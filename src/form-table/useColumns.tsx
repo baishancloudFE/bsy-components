@@ -18,13 +18,21 @@ const componentMap: ComponentMap = {
 function getItemChildren(item: Columns, index?: number) {
   const component = componentMap[item.type];
 
-  const props = { ...item.props };
+  const props = {
+    ...item.props,
+  };
   let children = null;
 
   if ('onChange' in props) {
     props.onChange = (value: any) => {
       item.props.onChange(value, index);
     };
+  }
+
+  if ('style' in props) {
+    props.style = { width: '100%', ...item.props.style };
+  } else {
+    props.style = { width: '100%' };
   }
 
   if (item.type === 'select') {

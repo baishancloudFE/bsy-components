@@ -2,18 +2,19 @@ export default {
   entry: 'src/index.tsx',
   esm: 'babel',
   cjs: 'babel',
-  umd: {
-    name: 'asd',
-    minFile: false,
-  },
+  umd: true,
   extraBabelPlugins: [
     [
-      'import',
-      { libraryName: 'antd', libraryDirectory: 'es', style: true },
+      'babel-plugin-import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+      },
       'antd',
     ],
     [
-      'import',
+      'babel-plugin-import',
       {
         libraryName: '@umijs/hooks',
         libraryDirectory: 'es',

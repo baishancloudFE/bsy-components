@@ -60,7 +60,6 @@ const Demo = () => {
       align: 'center',
       type: 'date',
       props: {
-        style: { width: '100%' },
         format: 'YYYY/MM/DD',
       },
     },
