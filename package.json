@@ -21,12 +21,8 @@
     "start": "dumi dev",
     "docs:build": "dumi build",
     "build": "father-build && node ./scripts/moveDeclare.js",
-    "clean": "lerna clean --yes",
-    "bootstrap": "lerna bootstrap",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
-    "test": "umi-test",
-    "test:coverage": "umi-test --coverage",
-    "publish-patch": "npm run build && npm version patch && npm publish"
+    "prepublishOnly": "npm run build"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
