@@ -1,11 +1,14 @@
-const ASSET_PATH = process.env.NODE_ENV === 'development' ? '/' : './';
+import { defineConfig } from 'dumi';
 
-export default {
+export default defineConfig({
   title: 'igroot',
   logo: 'http://fe.baishancloud.com/image/page-logo.png',
   hash: true,
-  base: '/components',
-  publicPath: ASSET_PATH,
+  base: '/bsy-components',
+  outputPath: './dist',
+  nodeModulesTransform: {
+    type: 'none',
+  },
   extraBabelPlugins: [
     [
       'import',
@@ -16,4 +19,4 @@ export default {
       },
     ],
   ],
-};
+});
