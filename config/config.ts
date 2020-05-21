@@ -6,6 +6,7 @@ export default defineConfig({
   hash: true,
   base: '/bsy-components',
   outputPath: './dist',
+  publicPath: '.',
   nodeModulesTransform: {
     type: 'none',
   },
