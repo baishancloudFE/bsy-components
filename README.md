@@ -2,19 +2,28 @@
 
 [白山云前端业务组件库](https://baishancloudfe.github.io/bsy-components/)
 
-### ✨ 特性
+<div align="center">
+[![CircleCI branch](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components)
+
+[![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components)
+
+[![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
+
+</div>
+
+## ✨ 特性
 
 - 提炼自各业务中常用的组件
 - 基于 antd 以及使用 TypeScript 编写，提供智能的编辑器提示
 - 重写、整合散落在各地的 igroot 业务组件
 - 严格遵循[http://semver.org/lang/zh-CN/](http://semver.org/lang/zh-CN/)语义化版本规范
 
-### 🖥 支持环境
+## 🖥 支持环境
 
 - React v16.8
 - antd v4.0
 
-### 📦 安装
+## 📦 安装
 
 ```bash
 npm install bsy-components
@@ -24,7 +33,7 @@ npm install bsy-components
 yarn add bsy-components
 ```
 
-### 🔨 示例
+## 🔨 示例
 
 ```jsx
 import { Form } from 'antd';
@@ -39,7 +48,7 @@ export default () => (
 );
 ```
 
-### ⌨️ 集成在现有 SL 项目中
+## ⌨️ 集成在现有 SL 项目中
 
 #### 升级依赖
 
@@ -67,11 +76,11 @@ _不兼容当前版本的 igroot!_
 
 // TODO
 
-### 维护者
+## 👨‍💻‍ 维护者
 
 [@ hanguihe](https://github.com/hanguihe)
 
-### 🤝 如何贡献
+## 🤝 如何贡献
 
 非常欢迎你的加入！
 
