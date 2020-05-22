@@ -2,14 +2,9 @@
 
 [白山云前端业务组件库](https://baishancloudfe.github.io/bsy-components/)
 
-<div align="center">
-[![CircleCI branch](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components)
-
+[![Travis CI](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components)
 [![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components)
-
 [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
-
-</div>
 
 ## ✨ 特性
 
