@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactText } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tree, Input } from 'antd';
 import { useDebounceFn } from '@umijs/hooks';
 import { TreeNodeNormal, TreeProps } from 'antd/es/tree/Tree';

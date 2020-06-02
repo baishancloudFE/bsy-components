@@ -15,6 +15,7 @@ const SelectTags: React.FC<SelectTagsProps> = ({
   onChange,
 }) => {
   const onCheckedChange = (checked: boolean, v: SingleValue): void => {
+    // @ts-ignore
     const newValue = produce(value, (draft: SelectTagsValue) => {
       if (mode === 'single') {
         return checked ? v : null;
