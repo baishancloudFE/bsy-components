@@ -2,7 +2,6 @@ export default {
   entry: 'src/index.tsx',
   esm: 'babel',
   cjs: 'babel',
-  umd: true,
   extraBabelPlugins: [
     [
       'babel-plugin-import',

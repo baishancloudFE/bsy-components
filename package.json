@@ -12,7 +12,6 @@
   "module": "es/index.js",
   "typings": "lib/index.d.ts",
   "files": [
-    "dist",
     "lib",
     "es"
   ],
@@ -20,7 +19,7 @@
     "init": "rm -rf node_modules dist es lib && yarn install && yarn run start",
     "start": "dumi dev",
     "docs:build": "dumi build",
-    "build": "father-build && node ./scripts/moveDeclare.js",
+    "build": "father-build",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "prepublishOnly": "npm run build"
   },
