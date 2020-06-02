@@ -8,13 +8,13 @@
     "name": "hanguihe",
     "email": "592029487@qq.com"
   },
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "es"
   ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "scripts": {
     "init": "rm -rf node_modules dist es lib && yarn install && yarn run start",
     "start": "dumi dev",
