@@ -8,7 +8,7 @@ export { default as FormTable } from './form-table';
 export { default as FilterForm } from './filter-form';
 
 // 其他
-export { default as WithLogin } from './with-login';
+export { default as LoginProvider } from './login-provider';
 
 // 导出Excel
 export { default as ExportExcel } from './export-excel';
