@@ -15,19 +15,13 @@ export interface SearchTreeProps<T, U extends { [key: string]: any }>
   parentNodeHide: boolean; // 父节点是否隐藏
   childNodeHide: boolean; // 子节点是否隐藏
   dataSource: Array<TreeNodeNormal>; // 数据源
-  onCheck?: (
-    keys: Array<React.ReactText>,
-    key: React.ReactText,
-    checked: boolean,
-  ) => void;
+  onCheck?: (keys: Array<React.ReactText>, key: React.ReactText, checked: boolean) => void;
 }
 
 const { TreeNode } = Tree;
-const Search = Input.Search;
+const { Search } = Input;
 
-const SearchTree = <T, U extends { [key: string]: any } = {}>(
-  props: SearchTreeProps<T, U>,
-) => {
+const SearchTree = <T, U extends { [key: string]: any } = {}>(props: SearchTreeProps<T, U>) => {
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
@@ -54,7 +48,8 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
     if (!value || value === '') {
       setSearchValue('');
       setExpandedKeys([]);
-      return setAutoExpandParent(false);
+      setAutoExpandParent(false);
+      return;
     }
     const keys = dataList
       .map((item) => {
@@ -72,13 +67,10 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
 
   const loop = (data: Array<TreeNodeNormal>) =>
     data.map((item) => {
-      const index =
-        typeof item.title === 'string' ? item.title.indexOf(searchValue) : 0;
-      const beforeStr =
-        typeof item.title === 'string' && item.title.substr(0, index);
+      const index = typeof item.title === 'string' ? item.title.indexOf(searchValue) : 0;
+      const beforeStr = typeof item.title === 'string' && item.title.substr(0, index);
       const afterStr =
-        typeof item.title === 'string' &&
-        item.title.substr(index + searchValue.length);
+        typeof item.title === 'string' && item.title.substr(index + searchValue.length);
 
       const title =
         index > -1 ? (
@@ -116,11 +108,7 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
   // 节点选择事件
   const nodeCheck = (keys: any, info: any) => {
     if (typeof onCheck === 'function') {
-      return onCheck(
-        keys,
-        info.node.props.eventKey as string,
-        info.checked as boolean,
-      );
+      return onCheck(keys, info.node.props.eventKey as string, info.checked as boolean);
     }
   };
 
@@ -159,6 +147,7 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(
 
 function getParentKey(key: string, tree: Array<TreeNodeNormal>): string | null {
   let parentKey: string | null = null;
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
     if (node.children) {
@@ -173,15 +162,15 @@ function getParentKey(key: string, tree: Array<TreeNodeNormal>): string | null {
 }
 
 function generateList(list: Array<TreeNodeNormal>) {
-  let dataList: Array<GenerateData> = [];
+  const dataList: Array<GenerateData> = [];
 
   const loop = (data: Array<TreeNodeNormal>) => {
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < data.length; i++) {
-      const node = data[i];
-      const key = node.key;
-      dataList.push({ key, title: node.title });
-      if (node.children) {
-        loop(node.children);
+      const { key, title, children } = data[i];
+      dataList.push({ key, title });
+      if (children) {
+        loop(children);
       }
     }
   };

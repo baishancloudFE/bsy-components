@@ -1,19 +1,9 @@
 import React from 'react';
 import { Tag } from 'antd';
 import produce from 'immer';
-import {
-  MultipleValue,
-  SelectTagsProps,
-  SelectTagsValue,
-  SingleValue,
-} from './type';
+import { MultipleValue, SelectTagsProps, SelectTagsValue, SingleValue } from './interface';
 
-const SelectTags: React.FC<SelectTagsProps> = ({
-  mode,
-  options,
-  value,
-  onChange,
-}) => {
+const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange }) => {
   const onCheckedChange = (checked: boolean, v: SingleValue): void => {
     // @ts-ignore
     const newValue = produce(value, (draft: SelectTagsValue) => {
@@ -22,10 +12,9 @@ const SelectTags: React.FC<SelectTagsProps> = ({
       }
 
       if (checked) {
-        (draft as MultipleValue).push(v);
-      } else {
-        return (draft as MultipleValue).filter(s => s !== v);
+        return (draft as MultipleValue).push(v);
       }
+      return (draft as MultipleValue).filter((s) => s !== v);
     });
     onChange(newValue);
   };
@@ -44,7 +33,7 @@ const SelectTags: React.FC<SelectTagsProps> = ({
           style={{ marginBottom: 2, cursor: 'pointer' }}
           key={`select-tags-${index}`}
           checked={isTagChecked(item.value)}
-          onChange={checked => onCheckedChange(checked, item.value)}
+          onChange={(checked) => onCheckedChange(checked, item.value)}
         >
           {item.label}
         </Tag.CheckableTag>

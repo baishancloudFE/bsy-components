@@ -20,15 +20,7 @@ const formItemLayout = {
 };
 
 const FilterForm: React.FC<FilterFormProps> = (props) => {
-  const {
-    children,
-    form,
-    itemLayout = formItemLayout,
-    loading,
-    extra,
-    didSubmit,
-    ...rest
-  } = props;
+  const { children, form, itemLayout = formItemLayout, loading, extra, didSubmit, ...rest } = props;
 
   if (!Array.isArray(children)) {
     throw new Error('children不能为空且必须为数组类型');

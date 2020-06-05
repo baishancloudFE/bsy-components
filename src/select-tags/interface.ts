@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type MultipleValue = Array<string | number>;
-type SingleValue = string | number;
+export type SingleValue = string | number;
 
 export type SelectTagsValue = MultipleValue | SingleValue;
 

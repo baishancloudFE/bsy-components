@@ -23,7 +23,6 @@ interface LoginStates {
 }
 
 class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
-  static logout: () => void;
   static defaultProps: {
     loading: React.ReactNode;
     config: { view: string; logout: string; login: string; validate: string };
@@ -50,29 +49,12 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
     }
   }
 
-  action(type: string) {
-    const { domain, config, clearFields } = this.props;
-
-    if (Array.isArray(clearFields)) {
-      clearFields.forEach((key) => {
-        localStorage.removeItem(key);
-      });
-    } else {
-      localStorage.clear();
-    }
-
-    if (type === 'logout') {
-      window.location.assign(`${domain}${config.logout}`);
-    } else {
-      window.location.assign(`${domain}${config.login}`);
-    }
-  }
-
   getUserInfo() {
     const { ticket } = getQueryParams();
     if (!ticket) {
       // 如果当前路由没有出现ticket参数 则直接跳转至SSO登录
-      return this.action('login');
+      this.action('login');
+      return;
     }
     const { domain, config } = this.props;
 
@@ -90,13 +72,14 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
           localStorage.setItem('current_user', JSON.stringify(userInfo));
 
           // 清除url多余参数
-          return (window.location.href = window.location.href.substring(
+          window.location.href = window.location.href.substring(
             0,
             window.location.href.indexOf('?'),
-          ));
+          );
+          return;
         }
         console.error('ticket校验异常，即将退出登录');
-        return this.action('logout');
+        this.action('logout');
       })
       .catch((err) => {
         console.error(`${config.view}接口响应异常，即将退出登录：`, err);
@@ -115,13 +98,33 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
           });
         }
         console.error('token校验异常，即将退出登录');
-        this.action('logout');
+        return this.action('logout');
       })
       .catch((err) => {
         console.error(`${config.validate}接口响应异常：`, err);
         this.action('logout');
       });
   }
+
+  action(type: string) {
+    const { domain, config, clearFields } = this.props;
+
+    if (Array.isArray(clearFields)) {
+      clearFields.forEach((key) => {
+        localStorage.removeItem(key);
+      });
+    } else {
+      localStorage.clear();
+    }
+
+    if (type === 'logout') {
+      window.location.assign(`${domain}${config.logout}`);
+    } else {
+      window.location.assign(`${domain}${config.login}`);
+    }
+  }
+
+  static logout: () => void;
 
   render() {
     const { loading: loadingComponent, children } = this.props;
@@ -144,7 +147,7 @@ const DefaultLoading = () => (
       justifyContent: 'center',
     }}
   >
-    <Spin spinning={true} />
+    <Spin spinning />
   </div>
 );
 

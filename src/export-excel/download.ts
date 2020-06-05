@@ -28,7 +28,9 @@ function download(rules: Rule, data: Array<Rule>, fileName: string) {
   const buffer = () => {
     const buf = new ArrayBuffer(wbout.length);
     const view = new Uint8Array(buf);
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i !== wbout.length; ++i)
+      // eslint-disable-next-line no-bitwise
       view[i] = wbout.charCodeAt(i) & 0xff;
     return buf;
   };

@@ -9,11 +9,7 @@ interface ImportExcelProps {
   onFinish: (data: any[]) => void;
 }
 
-const ImportExcel: React.FC<ImportExcelProps> = ({
-  children,
-  rules,
-  onFinish,
-}) => {
+const ImportExcel: React.FC<ImportExcelProps> = ({ children, rules, onFinish }) => {
   const translate = useCallback(
     (data) => {
       const reversal = new Map();

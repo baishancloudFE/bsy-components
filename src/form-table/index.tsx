@@ -20,12 +20,7 @@ const FormTable: React.FC<FormTableProps> = (props) => {
             width: '60px',
             align: 'center',
             render: (text, row) => (
-              <Button
-                size="small"
-                danger={true}
-                ghost={true}
-                onClick={() => remove(row.name)}
-              >
+              <Button danger ghost size="small" onClick={() => remove(row.name)}>
                 删除
               </Button>
             ),
@@ -45,7 +40,7 @@ const FormTable: React.FC<FormTableProps> = (props) => {
             className="bsy-form-table"
             rowKey="key"
             size="small"
-            bordered={true}
+            bordered
             pagination={false}
             columns={formColumns(remove)}
             dataSource={fields}
@@ -55,7 +50,7 @@ const FormTable: React.FC<FormTableProps> = (props) => {
               className="bsy-form-table-add-button"
               size="small"
               type="dashed"
-              block={true}
+              block
               onClick={() => add(template)}
             >
               添加一行

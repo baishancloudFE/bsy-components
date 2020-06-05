@@ -33,6 +33,7 @@
     "tslint:latest",
     "tslint-config-prettier",
     "example",
+    "**/demo/**",
     "_test_"
   ]
 }

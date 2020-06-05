@@ -14,17 +14,8 @@ interface ChoseModalProps {
 
 const { Group } = Checkbox;
 
-const ChoseModal: React.FC<ChoseModalProps> = ({
-  visible,
-  close,
-  rules,
-  data,
-  filename,
-}) => {
-  const initialKeys: Array<CheckboxValueType> = useMemo(
-    () => Object.keys(rules),
-    [rules],
-  );
+const ChoseModal: React.FC<ChoseModalProps> = ({ visible, close, rules, data, filename }) => {
+  const initialKeys: Array<CheckboxValueType> = useMemo(() => Object.keys(rules), [rules]);
   const options = useMemo(
     () => initialKeys.map((key) => ({ label: rules[String(key)], value: key })),
     [initialKeys, rules],
@@ -35,7 +26,7 @@ const ChoseModal: React.FC<ChoseModalProps> = ({
   const [checkAllStatus, setCheckAllStatus] = useState(true);
 
   const onChange = (list: Array<CheckboxValueType>) => {
-    const length = Object.keys(rules).length;
+    const { length } = Object.keys(rules);
 
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < length);
@@ -67,7 +58,7 @@ const ChoseModal: React.FC<ChoseModalProps> = ({
       visible={visible}
       title="导出Excel"
       width={900}
-      destroyOnClose={true}
+      destroyOnClose
       okText="下载"
       cancelText="取消"
       onCancel={close}
