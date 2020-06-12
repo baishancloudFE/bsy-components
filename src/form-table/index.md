@@ -1,6 +1,10 @@
 ---
+title: FormTable
+order: 3
 group:
   title: 数据录入
+  path: /entry
+  order: 2
 ---
 
 # FormTable
@@ -9,8 +13,8 @@ group:
 
 ### Examples
 
-<code src="../../src/form-table/demo/index.jsx" />
-<code src="../../src/form-table/demo/demo2.jsx" />
+<code src="./demo/index.jsx" />
+<code src="./demo/demo2.jsx" />
 
 ### 参数
 

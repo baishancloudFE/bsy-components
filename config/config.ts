@@ -1,13 +1,22 @@
 import { defineConfig } from 'dumi';
 
+const ASSET_PATH = process.env.NODE_ENV === 'development' ? '/' : '/bsy-components/';
+
+const LOGO_PATH =
+  process.env.NODE_ENV === 'development'
+    ? '/logo.png'
+    : 'https://baishancloudfe.github.io/bsy-components/logo.png';
+
 export default defineConfig({
   title: 'igroot',
-  logo: 'http://fe.baishancloud.com/image/page-logo.png',
+  logo: LOGO_PATH,
   hash: true,
-  base: '/bsy-components',
+  base: ASSET_PATH,
   outputPath: './dist',
+  publicPath: ASSET_PATH,
+  manifest: {},
+  links: [{ rel: 'manifest', href: '/asset-manifest.json' }],
   dynamicImport: {},
-  exportStatic: {},
   nodeModulesTransform: {
     type: 'none',
   },

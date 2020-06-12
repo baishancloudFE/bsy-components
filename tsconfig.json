@@ -20,20 +20,5 @@
     "outDir": "dist",
     "declaration": true
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "lib",
-    "es",
-    "config",
-    "scripts",
-    "webpack",
-    "jest",
-    "tslint:latest",
-    "tslint-config-prettier",
-    "example",
-    "**/demo/**",
-    "_test_"
-  ]
+  "exclude": ["node_modules", "dist", "lib", "es", "**/demo", "**/__test__", "**/__tests__"]
 }

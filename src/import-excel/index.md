@@ -1,6 +1,10 @@
 ---
+title: ImportExcel
+order: 2
 group:
-  title: 其他组件
+  title: 其他
+  path: /other
+  order: 3
 ---
 
 # ImportExcel
@@ -9,7 +13,7 @@ group:
 
 ### Examples
 
-<code src="../../src/import-excel/demo/index.jsx" />
+<code src="./demo/index.jsx" />
 
 ### 参数
 

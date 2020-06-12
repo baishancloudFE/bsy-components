@@ -1,6 +1,10 @@
 ---
+title: LoginProvider
+order: 1
 group:
-  title: 其他组件
+  title: 容器
+  path: /container
+  order: 1
 ---
 
 # LoginProvider

@@ -1,6 +1,10 @@
 ---
+title: SelectTags
+order: 2
 group:
   title: 数据录入
+  path: /entry
+  order: 2
 ---
 
 # SelectTags
@@ -9,7 +13,7 @@ group:
 
 ### Examples
 
-<code src="../../src/select-tags/demo/index.jsx" />
+<code src="./demo/index.jsx" />
 
 ### 参数
 

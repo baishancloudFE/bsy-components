@@ -51,12 +51,7 @@ const Index = () => {
   };
 
   return (
-    <SearchTree
-      placeholder="输入节点名称"
-      checkable={true}
-      dataSource={data}
-      onCheck={onCheck}
-    />
+    <SearchTree placeholder="输入节点名称" checkable={true} dataSource={data} onCheck={onCheck} />
   );
 };
 

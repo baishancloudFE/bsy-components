@@ -1,6 +1,10 @@
 ---
+title: TextFormItem
+order: 1
 group:
-  title: 数据展示
+  title: 数据录入
+  path: /entry
+  order: 2
 ---
 
 # TextFormItem
