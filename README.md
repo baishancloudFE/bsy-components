@@ -2,9 +2,7 @@
 
 [白山云前端业务组件库](https://baishancloudfe.github.io/bsy-components/)
 
-[![Travis CI](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components)
-[![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components)
-[![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
+[![Travis CI](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components) [![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components) [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
 
 ## ✨ 特性
 
@@ -61,11 +59,23 @@ _不兼容当前版本的 igroot!_
 
 另外，不建议使用`@ant-design/codemod-v4`进行迁移，尽量将所有业务代码的变化掌握在自己手里。
 
-#### 修改配置
+#### 全新项目
 
-在 bsy.json 中配置 `useAntd: true`，打包时会默认将代码中的 igroot 替换为 antd(防止 igroot 全局样式影响)
+1. 卸载`igroot`并安装`antd@4.x`
+2. 在 bsy.json 中配置 `useAntd: true`，打包时会默认将代码中的 igroot 替换为 antd(防止 igroot 全局样式影响)
+3. 将`antd`及`bsy-components`注册在 bsy.json 的`esMoudule`中
 
-详细配置请在 confluence 内搜索 `bsy.json`，如遇到问题请联系 @韬仔
+_详细配置请在 confluence 内搜索 `bsy.json`，如遇到问题请联系 @韬仔_
+
+#### igroot 及 antd@3.x 并存的老项目中
+
+1. 升级`antd`至 V4 版本，务必精读[从 v3 到 v4](https://ant.design/docs/react/migration-v4-cn)
+2. 使用`@ant-design/codemod-v4`进行 V3 版本代码迁移
+3. 无需配置`useAntd`选项
+4. 将`antd`及`bsy-components`注册在 bsy.json 的`esMoudule`中
+5. 样式冲突请自行修改
+
+_不建议使用工具进行迁移，尽量将所有业务代码的变化掌握在自己手里。_
 
 #### 最佳实践
 
