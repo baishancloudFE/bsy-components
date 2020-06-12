@@ -16,3 +16,6 @@ deploy:
   local_dir: dist
   on:
     branch: master
+after_success:
+  - mv ./dist/* ./
+  - rm -rf dist
