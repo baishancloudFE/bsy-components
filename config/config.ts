@@ -1,15 +1,8 @@
 import { defineConfig } from 'dumi';
 
-const ASSET_PATH = process.env.NODE_ENV === 'development' ? '/' : '/components/';
-
-const LOGO_PATH =
-  process.env.NODE_ENV === 'development'
-    ? '/logo.png'
-    : 'http://fe.baishancloud.com/components/logo.png';
-
 export default defineConfig({
   title: 'igroot',
-  logo: LOGO_PATH,
+  logo: './logo.png',
   hash: true,
   publicPath: './',
   history: {
@@ -18,6 +11,7 @@ export default defineConfig({
   manifest: {},
   links: [{ rel: 'manifest', href: '/asset-manifest.json' }],
   dynamicImport: {},
+  exportStatic: {},
   nodeModulesTransform: {
     type: 'none',
   },

@@ -47,17 +47,11 @@ export default () => (
 
 bsy-components 依赖 React v16.8.0 或以上以及 antd v4.x 版本，在引入前务必升级您的依赖版本。
 
-#### 更换 igroot 组件
-
 _不兼容当前版本的 igroot!_
 
 _不兼容当前版本的 igroot!_
 
 _不兼容当前版本的 igroot!_
-
-由于 igroot 是基于 antd v3.x 开发的，在使用前务必精读[从 v3 到 v4](https://ant.design/docs/react/migration-v4-cn)
-
-另外，不建议使用`@ant-design/codemod-v4`进行迁移，尽量将所有业务代码的变化掌握在自己手里。
 
 #### 全新项目
 
