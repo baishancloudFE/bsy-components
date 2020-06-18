@@ -1,32 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Tree, Input } from 'antd';
-import { useDebounceFn } from '@umijs/hooks';
-import { TreeNodeNormal, TreeProps } from 'antd/es/tree/Tree';
+import React, { useEffect, useCallback, useReducer, useMemo } from "react";
+import { Tree, Input } from "antd";
+import { TreeNodeNormal } from "antd/es/tree/Tree";
+import { SearchTreeProps } from "./interface";
+import { getParentKey, generateList, debounce } from "./util";
+import reducer, { initialState } from "./store";
 
-export interface GenerateData {
-  key: React.ReactText;
-  title: React.ReactNode;
-}
-
-export interface SearchTreeProps<T, U extends { [key: string]: any }>
-  extends Omit<TreeProps, 'onCheck'> {
-  placeholder: string; // 搜索框提示
-  parentCheckedAble: boolean; // 父节点是否可选
-  parentNodeHide: boolean; // 父节点是否隐藏
-  childNodeHide: boolean; // 子节点是否隐藏
-  dataSource: Array<TreeNodeNormal>; // 数据源
-  onCheck?: (keys: Array<React.ReactText>, key: React.ReactText, checked: boolean) => void;
-}
-
-const { TreeNode } = Tree;
 const { Search } = Input;
 
 const SearchTree = <T, U extends { [key: string]: any } = {}>(props: SearchTreeProps<T, U>) => {
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
-
-  const [dataList, setDataList] = useState<Array<GenerateData>>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const {
     dataSource,
@@ -38,145 +20,103 @@ const SearchTree = <T, U extends { [key: string]: any } = {}>(props: SearchTreeP
     onCheck,
     ...rest
   } = props;
+  const { expandedKeys, searchValue, autoExpandParent, flattenList } = state;
 
-  const onExpand = (keys: any[]) => {
-    setExpandedKeys(keys);
-    setAutoExpandParent(false);
-  };
+  const onExpand = useCallback((keys: any[]) => {
+    dispatch({ type: "on-node-expand", payload: keys });
+  }, []);
 
-  const { run: onChange } = useDebounceFn((value) => {
-    if (!value || value === '') {
-      setSearchValue('');
-      setExpandedKeys([]);
-      setAutoExpandParent(false);
+  const onChange = debounce((value: undefined | string) => {
+    if (!value || value === "") {
+      dispatch({ type: "reset-expand" });
       return;
     }
-    const keys = dataList
+    const keys = flattenList
       .map((item) => {
-        if (typeof item.title === 'string' && item.title.indexOf(value) > -1) {
+        if (typeof item.title === "string" && item.title.indexOf(value) > -1) {
           return getParentKey(item.key as string, dataSource);
         }
         return null;
       })
       .filter((item, i, self) => item && self.indexOf(item) === i);
 
-    setExpandedKeys(keys as string[]);
-    setSearchValue(value);
-    setAutoExpandParent(true);
+    dispatch({ type: "on-search-node", payload: { value, keys } });
   }, 300);
 
-  const loop = (data: Array<TreeNodeNormal>) =>
-    data.map((item) => {
-      const index = typeof item.title === 'string' ? item.title.indexOf(searchValue) : 0;
-      const beforeStr = typeof item.title === 'string' && item.title.substr(0, index);
-      const afterStr =
-        typeof item.title === 'string' && item.title.substr(index + searchValue.length);
-
-      const title =
-        index > -1 ? (
-          <span>
-            {beforeStr}
-            <span style={{ color: '#f50' }}>{searchValue}</span>
-            {afterStr}
-          </span>
-        ) : (
-          <span>{item.title}</span>
-        );
-
-      if (item.children) {
-        return (
-          <TreeNode
-            key={item.key}
-            title={title}
-            disableCheckbox={!parentCheckedAble}
-            style={index > -1 || !parentNodeHide ? {} : { display: 'none' }}
-          >
-            {loop(item.children)}
-          </TreeNode>
-        );
+  const loop = useCallback((data: TreeNodeNormal[]): TreeNodeNormal[] => {
+    return data.map((item) => {
+      let { title } = item;
+      let index = -1;
+      if (typeof item.title === "string") {
+        index = item.title.indexOf(searchValue);
+        const beforeStr = item.title.substr(0, index);
+        const afterStr = item.title.substr(index + searchValue.length);
+        if (index > -1) {
+          title = (
+            <span>
+              {beforeStr}
+              <span style={{ color: "#f50" }}>{searchValue}</span>
+              {afterStr}
+            </span>
+          );
+        }
       }
 
-      return (
-        <TreeNode
-          style={index > -1 || !childNodeHide ? {} : { display: 'none' }}
-          key={item.key}
-          title={title}
-        />
-      );
+      if (item.children) {
+        return {
+          key: item.key,
+          title,
+          disableCheckbox: !parentCheckedAble,
+          style: index > -1 || !parentNodeHide ? {} : { display: "none" },
+          children: loop(item.children)
+        };
+      }
+      return {
+        key: item.key,
+        title,
+        style: index > -1 || !childNodeHide ? {} : { display: "none" }
+      };
     });
+  }, [childNodeHide, parentCheckedAble, parentNodeHide, searchValue]);
 
   // 节点选择事件
-  const nodeCheck = (keys: any, info: any) => {
-    if (typeof onCheck === 'function') {
-      return onCheck(keys, info.node.props.eventKey as string, info.checked as boolean);
-    }
-  };
+  const nodeCheck = useCallback(
+    (keys: any, info: any) => {
+      if (typeof onCheck !== "function") {
+        return;
+      }
+      onCheck(keys, info.node.props.eventKey as string, info.checked as boolean);
+    },
+    [onCheck]
+  );
 
   useEffect(() => {
-    setDataList(generateList(dataSource));
+    dispatch({ type: "set-flatten-list", payload: generateList(dataSource) });
   }, [dataSource]);
 
-  const tree = () => {
-    // TODO 因重载了onCheck方法报错 暂无解决思路
-    return (
-      // @ts-ignore
-      <Tree
-        {...rest}
-        checkStrictly={checkStrictly}
-        onCheck={nodeCheck}
-        onExpand={onExpand}
-        expandedKeys={expandedKeys}
-        autoExpandParent={autoExpandParent}
-      >
-        {loop(dataSource)}
-      </Tree>
-    );
-  };
+  const tree = useMemo(() => (
+    <Tree
+      {...rest}
+      checkStrictly={checkStrictly}
+      onCheck={nodeCheck}
+      onExpand={onExpand}
+      expandedKeys={expandedKeys}
+      autoExpandParent={autoExpandParent}
+      treeData={loop(dataSource)}
+    />
+  ), [autoExpandParent, checkStrictly, dataSource, expandedKeys, loop, nodeCheck, onExpand, rest]);
 
-  return (
+  return useMemo(() => (
     <div>
       <Search
         style={{ marginBottom: 8 }}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
       />
-      {tree()}
+      {tree}
     </div>
-  );
+  ), [onChange, placeholder, tree]);
 };
-
-function getParentKey(key: string, tree: Array<TreeNodeNormal>): string | null {
-  let parentKey: string | null = null;
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < tree.length; i++) {
-    const node = tree[i];
-    if (node.children) {
-      if (node.children.some((item) => item.key === key)) {
-        parentKey = node.key as string;
-      } else if (getParentKey(key, node.children)) {
-        parentKey = getParentKey(key, node.children);
-      }
-    }
-  }
-  return parentKey;
-}
-
-function generateList(list: Array<TreeNodeNormal>) {
-  const dataList: Array<GenerateData> = [];
-
-  const loop = (data: Array<TreeNodeNormal>) => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < data.length; i++) {
-      const { key, title, children } = data[i];
-      dataList.push({ key, title });
-      if (children) {
-        loop(children);
-      }
-    }
-  };
-  loop(list);
-  return dataList;
-}
 
 export default SearchTree;
 
@@ -186,5 +126,5 @@ SearchTree.defaultProps = {
   parentCheckedAble: true,
   parentNodeHide: false,
   childNodeHide: true,
-  placeholder: 'Search',
+  placeholder: "Search"
 };
