@@ -1,52 +1,64 @@
-import React from 'react';
-import { Tag } from 'antd';
-import produce from 'immer';
-import { MultipleValue, SelectTagsProps, SelectTagsValue, SingleValue } from './interface';
+import React, { useCallback } from "react";
+import { Tag } from "antd";
+import { SelectTagsProps } from "./interface";
 
-const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange }) => {
-  const onCheckedChange = (checked: boolean, v: SingleValue): void => {
-    // @ts-ignore
-    const newValue = produce(value, (draft: SelectTagsValue) => {
-      if (mode === 'single') {
-        return checked ? v : null;
-      }
+const SelectTags: React.FC<SelectTagsProps> = ({
+  mode,
+  options,
+  value,
+  onChange
+}) => {
+  const onCheckChange = useCallback((status, v) => {
+    if (mode === "single" && !Array.isArray(value)) {
+      onChange(status ? v : null);
+      return;
+    }
 
-      if (checked) {
-        return (draft as MultipleValue).push(v);
-      }
-      return (draft as MultipleValue).filter((s) => s !== v);
-    });
-    onChange(newValue);
-  };
+    if (!Array.isArray(value)) {
+      return;
+    }
 
-  const isTagChecked = (v: SingleValue): boolean => {
-    if (mode === 'single') {
+    if (status) {
+      onChange([...value, v]);
+    } else {
+      onChange(value.filter(s => s !== v));
+    }
+  }, [mode, onChange, value]);
+
+  const checkStatus = useCallback((v) => {
+    if (mode === "single") {
       return v === value;
     }
-    return (value as MultipleValue).includes(v);
-  };
+
+    if (Array.isArray(value)) {
+      return value.includes(v);
+    }
+
+    return false;
+  }, [mode, value]);
 
   return (
     <div>
       {options.map((item, index) => (
         <Tag.CheckableTag
-          style={{ marginBottom: 2, cursor: 'pointer' }}
+          style={{ marginBottom: 2, cursor: "pointer" }}
           key={`select-tags-${index}`}
-          checked={isTagChecked(item.value)}
-          onChange={(checked) => onCheckedChange(checked, item.value)}
+          checked={checkStatus(item.value)}
+          onChange={(checked) => onCheckChange(checked, item.value)}
         >
           {item.label}
         </Tag.CheckableTag>
       ))}
     </div>
-  );
+  )
 };
 
 SelectTags.defaultProps = {
-  mode: 'multiple',
+  mode: "multiple",
   value: [],
   onChange: () => {},
-  options: [],
+  options: []
 };
 
 export default SelectTags;
+

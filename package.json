@@ -30,7 +30,6 @@
     "pub": "npm run build && np"
   },
   "dependencies": {
-    "immer": "^6.0.5",
     "xlsx": "^0.16.0"
   },
   "devDependencies": {
