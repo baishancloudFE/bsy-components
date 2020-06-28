@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ChoseModal from './ChoseModal';
-import download from './download';
+import React from "react";
+import ReactDOM from "react-dom";
+import ChoseModal from "./ChoseModal";
+import download from "./download";
 
 function open(config: any) {
   if (config.screening === false) {
@@ -9,7 +9,7 @@ function open(config: any) {
     return;
   }
 
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   document.body.appendChild(div);
 
   let currentConfig = { ...config, close, visible: true } as any;
@@ -21,7 +21,7 @@ function open(config: any) {
   function close() {
     currentConfig = {
       ...currentConfig,
-      visible: false,
+      visible: false
     };
     render(currentConfig);
     setTimeout(() => {
@@ -35,4 +35,6 @@ function open(config: any) {
   render(currentConfig);
 }
 
-export default open;
+const ExportExcel = { open };
+
+export default ExportExcel;
