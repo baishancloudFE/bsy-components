@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { DatePicker, Form, Input, InputNumber, Select } from 'antd';
-import { ColumnProps } from 'antd/lib/table';
+import { ColumnProps } from 'antd/es/table';
 import TextFormItem from '../text-form-item';
 import { Columns, FormListData, ComponentMap } from './interface';
 
