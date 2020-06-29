@@ -37,6 +37,10 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
   }
 
   componentDidMount() {
+    if (this.props.open === false) {
+      return;
+    }
+
     const token = localStorage.getItem('token');
 
     if (token && !localStorage.getItem('current_user')) {
@@ -127,8 +131,12 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
   static logout: () => void;
 
   render() {
-    const { loading: loadingComponent, children } = this.props;
+    const { loading: loadingComponent, children, open } = this.props;
     const { loading } = this.state;
+
+    if (open === false) {
+      return children;
+    }
 
     if (loading) {
       return loadingComponent;
