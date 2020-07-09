@@ -1,4 +1,4 @@
-import { ComponentClass, FunctionComponent } from 'react';
+import React, { ComponentClass, FunctionComponent } from 'react';
 import { ColumnProps, TableProps } from 'antd/es/table';
 
 export type ComponentMap = {
@@ -23,8 +23,7 @@ export interface Columns extends FormListColumns {
   options?: Array<{ label: React.ReactText; value: string | number }>;
 }
 
-export interface FormTableProps
-  extends Omit<TableProps<FormListData>, 'columns'> {
+export interface FormTableProps extends Omit<TableProps<FormListData>, 'columns'> {
   name: string;
   columns: Columns[];
   dynamic?: boolean;
