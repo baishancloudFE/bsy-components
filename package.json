@@ -30,6 +30,7 @@
     "pub": "npm run build && np"
   },
   "dependencies": {
+    "@antv/l7-react": "^2.2.23",
     "xlsx": "^0.16.0"
   },
   "devDependencies": {
