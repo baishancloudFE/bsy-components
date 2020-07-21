@@ -1,4 +1,6 @@
-import XLSX from 'xlsx';
+import React from 'react';
+
+const XLSX = React.lazy(() => import('xlsx'));
 
 export type Rule = { [key: string]: any };
 

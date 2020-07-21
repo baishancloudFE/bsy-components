@@ -60,11 +60,7 @@ function useColumns(columns: Array<Columns>) {
         arrItem.render = (text, row, index) => (
           <Item
             name={[index, String(item.dataIndex)]}
-            rules={
-              item.required
-                ? [{ required: true, message: `请填写${item.title}` }]
-                : undefined
-            }
+            rules={item.required ? [{ required: true, message: `请填写${item.title}` }] : undefined}
           >
             {getItemChildren(item, index)}
           </Item>
