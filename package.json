@@ -1,6 +1,6 @@
 {
   "name": "bsy-components",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "新版igroot组件库",
   "files": [
     "/lib",
