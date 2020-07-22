@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin } from 'antd';
+import { notification, Spin } from 'antd';
 import { fetchToken, fetchView, getQueryParams } from './fetch';
 
 interface LoginConfig {
@@ -27,6 +27,8 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
     loading: React.ReactNode;
     config: { view: string; logout: string; login: string; validate: string };
   };
+
+  static logout: () => void;
 
   constructor(props: LoginProviderProps) {
     super(props);
@@ -82,12 +84,10 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
           );
           return;
         }
-        console.error('ticket校验异常，即将退出登录');
-        this.action('logout');
+        this.fetchError('登录失败', 'SSO的view参数校验异常，即将返回重新登录');
       })
       .catch((err) => {
-        console.error(`${config.view}接口响应异常，即将退出登录：`, err);
-        return this.action('logout');
+        this.fetchError('登录失败', err.message);
       });
   }
 
@@ -97,16 +97,15 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
       .then((res) => {
         const { code } = res;
         if (code === 0) {
-          return this.setState({
+          this.setState({
             loading: false,
           });
+          return;
         }
-        console.error('token校验异常，即将退出登录');
-        return this.action('logout');
+        this.fetchError('校验token失败', 'token参数校验异常，即将退出登录');
       })
       .catch((err) => {
-        console.error(`${config.validate}接口响应异常：`, err);
-        this.action('logout');
+        this.fetchError('校验token失败', err.message);
       });
   }
 
@@ -128,7 +127,16 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
     }
   }
 
-  static logout: () => void;
+  fetchError(msg: string, desc: string) {
+    notification.error({
+      message: msg,
+      description: desc,
+      duration: 1,
+      onClose: () => {
+        this.action('logout');
+      },
+    });
+  }
 
   render() {
     const { loading: loadingComponent, children, open } = this.props;
