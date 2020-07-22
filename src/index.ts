@@ -1,6 +1,7 @@
 // 数据展示
 export { default as SearchTree } from './search-tree';
 export { default as TextFormItem } from './text-form-item';
+export { default as ChinaMap } from './china-map';
 
 // 数据录入
 export { default as SelectTags } from './select-tags';
