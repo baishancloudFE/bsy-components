@@ -5,6 +5,10 @@ import { SelectTagsProps } from './interface';
 const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange }) => {
   const onCheckChange = useCallback(
     (status, v) => {
+      if (typeof onChange !== 'function') {
+        return;
+      }
+
       if (mode === 'single' && !Array.isArray(value)) {
         onChange(status ? v : null);
         return;
