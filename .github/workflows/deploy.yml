@@ -20,6 +20,7 @@ jobs:
       - name: build & deploy
         uses: JamesIves/github-pages-deploy-action@master
         env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BUILD_SCRIPT: yarn run docs:build
           BRANCH: gh-pages
           FOLDER: 'dist/'
