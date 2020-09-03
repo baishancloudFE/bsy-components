@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: install
-        run: yarn install
+        run: yarn install --registry https://registry.npm.taobao.org/
 
       - name: build
         run: yarn run docs:build
