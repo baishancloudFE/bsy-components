@@ -7,12 +7,15 @@ on:
 
 jobs:
   build-and-deploy:
+    # 服务器环境
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout
         uses: actions/checkout@master
-      - run: yarn
-      - run: yarn install
+
+      - name: install
+        run: yarn install
 
       - name: build & deploy
       - uses: JamesIves/github-pages-deploy-action@master
