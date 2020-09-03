@@ -2,6 +2,7 @@
   "name": "bsy-components",
   "version": "0.7.0",
   "description": "新版igroot组件库",
+  "homepage": "https://baishancloudfe.github.io/bsy-components",
   "files": [
     "/lib",
     "/es"

@@ -1,0 +1,21 @@
+name: Deploy CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - run: yarn
+      - run: yarn install
+
+      - name: JamesIves/github-pages-deploy-action@master
+      - env:
+          BUILD_SCRIPT: yarn run docs:build
+          BRANCH: gh-pages
+          FOLDER: 'dist/'
