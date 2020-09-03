@@ -1,31 +1,13 @@
 import React from 'react';
 import { notification, Spin } from 'antd';
 import { fetchToken, fetchView, getQueryParams } from './fetch';
-
-interface LoginConfig {
-  view: string;
-  login: string;
-  logout: string;
-  validate: string;
-}
-
-export interface LoginProviderProps {
-  open?: boolean;
-  domain: string;
-  config: LoginConfig;
-  loading?: React.ReactNode;
-  children?: React.ReactNode;
-  clearFields?: string;
-}
-
-interface LoginStates {
-  loading: boolean;
-}
+import { LoginProviderProps, LoginStates } from './interface';
 
 class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
   static defaultProps: {
     loading: React.ReactNode;
     config: { view: string; logout: string; login: string; validate: string };
+    onError: (msg: string, desc: string) => void;
   };
 
   static logout: () => void;
@@ -128,14 +110,11 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
   }
 
   fetchError(msg: string, desc: string) {
-    notification.error({
-      message: msg,
-      description: desc,
-      duration: 1,
-      onClose: () => {
-        this.action('logout');
-      },
-    });
+    const { onError } = this.props;
+
+    if (typeof onError === 'function') {
+      onError(msg, desc);
+    }
   }
 
   render() {
@@ -174,6 +153,16 @@ LoginProvider.defaultProps = {
     login: '/account/user/login',
     logout: '/account/user/logout',
     validate: '/account/token/validate',
+  },
+  onError: (msg: string, desc: string) => {
+    notification.error({
+      message: msg,
+      description: desc,
+      duration: 1,
+      onClose: () => {
+        LoginProvider.logout();
+      },
+    });
   },
 };
 

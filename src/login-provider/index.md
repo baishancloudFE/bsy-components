@@ -20,7 +20,7 @@ import { LoginProvider } from 'bsy-components';
 const Demo = ({ children }) => {
   // do something...
   return (
-    <LoginProvider open={false} domain="https://www.baishancloud.com">
+    <LoginProvider open={false} domain="https://www.xxx.com">
       {children}
     </LoginProvider>
   );
@@ -38,6 +38,7 @@ export default Demo;
 | config       | SSO 对应的四个接口地址   | Config          | 初始 SSO 配置 |
 | loading?     | Loading 组件             | React.ReactNode | -             |
 | clearFields? | 自定义退出登录清除的字段 | React.ReactNode | -             |
+| onError?     | 登录或校验出现错误事件   | function        | notification  |
 
 ### Config
 
@@ -61,6 +62,29 @@ interface LoginConfig {
 }
 ```
 
+### onError
+
+onError 默认处理函数如下：
+
+```javascript
+function onError(msg: string, desc: string) {
+  notification.error({
+    message: msg,
+    description: desc,
+    duration: 1,
+    onClose: () => {
+      LoginProvider.logout();
+    },
+  });
+}
+```
+
+可通过配置为 false 取消默认处理方式或自定义处理函数
+
+msg 有两种内容，分别是："登录失败" | "校验 token 失败"
+
+desc 为错误详细内容
+
 ### 说明
 
 1. 查询 localStorage 中是否存在 token 参数
@@ -68,7 +92,7 @@ interface LoginConfig {
    - 若存在，则校验 token 是否合法
    - 若不存在，则跳转至登录页面
 
-2. 若 veiw 或 validate 接口返回异常，则跳转至退出登录
+2. 若 view 或 validate 接口返回异常，则跳转至退出登录
 
 3. 默认登录后在 localStorage 存储 SSO 返回的用户数据如下
 
