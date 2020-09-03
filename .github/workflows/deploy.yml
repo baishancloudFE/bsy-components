@@ -14,7 +14,8 @@ jobs:
       - run: yarn
       - run: yarn install
 
-      - name: JamesIves/github-pages-deploy-action@master
+      - name: build & deploy
+      - uses: JamesIves/github-pages-deploy-action@master
       - env:
           BUILD_SCRIPT: yarn run docs:build
           BRANCH: gh-pages
