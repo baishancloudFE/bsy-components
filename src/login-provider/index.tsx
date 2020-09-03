@@ -114,6 +114,8 @@ class LoginProvider extends React.Component<LoginProviderProps, LoginStates> {
 
     if (typeof onError === 'function') {
       onError(msg, desc);
+    } else {
+      this.action('logout');
     }
   }
 
