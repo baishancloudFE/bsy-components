@@ -3,7 +3,7 @@ name: Deploy CI
 on:
   push:
     branches:
-      - master
+      - feature/github-action
 
 jobs:
   build-and-deploy:
