@@ -13,8 +13,8 @@ group:
 
 ### Examples
 
-<code src="./demo/index.jsx" />
-<code src="./demo/demo2.jsx" />
+<code src="./demo1.jsx" />
+<code src="./demo2.jsx" />
 
 ### 参数
 

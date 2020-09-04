@@ -49,8 +49,8 @@ const Demo = () => {
     });
   };
 
-  const onFinish = (data) => {
-    console.log(data);
+  const onFinish = (dataSource) => {
+    console.log(dataSource);
   };
 
   return (

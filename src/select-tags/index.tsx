@@ -10,7 +10,7 @@ const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange 
       }
 
       if (mode === 'single' && !Array.isArray(value)) {
-        onChange(status ? v : null);
+        onChange(status ? v : undefined);
         return;
       }
 

@@ -1,3 +1,8 @@
+// For a detailed explanation regarding each configuration property, visit:
+// https://jestjs.io/docs/en/configuration.html
+
 module.exports = {
-  snapshotSerializers: [require.resolve('enzyme-to-json/serializer')],
+  clearMocks: true,
+  coverageDirectory: 'coverage',
+  setupFiles: ['./tests/setup.js'],
 };
