@@ -34,7 +34,8 @@ yarn add bsy-components
 
 ## 🔨 示例
 
-```jsx
+```js
+import React from 'react';
 import { Form } from 'antd';
 import { SelectTags } from 'bsy-components';
 
