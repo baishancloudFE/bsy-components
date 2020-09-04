@@ -8,7 +8,7 @@ order: 0
 
 [白山云前端业务组件库](https://baishancloudfe.github.io/bsy-components/)
 
-[![Travis CI](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components) [![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components) [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
+[![Deploy CI](https://github.com/baishancloudFE/bsy-components/workflows/Deploy%20CI/badge.svg)](https://github.com/baishancloudFE/bsy-components/actions?query=workflow%3A%22Deploy+CI%22) [![NPM version](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components) [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
 
 ## ✨ 特性
 
@@ -34,7 +34,7 @@ yarn add bsy-components
 
 ## 🔨 示例
 
-```js
+```jsx
 import { Form } from 'antd';
 import { SelectTags } from 'bsy-components';
 
@@ -53,27 +53,45 @@ export default () => (
 
 bsy-components 依赖 React v16.8.0 或以上以及 antd v4.x 版本，在引入前务必升级您的依赖版本。
 
-#### 更换 igroot 组件
-
 _不兼容当前版本的 igroot!_
 
 _不兼容当前版本的 igroot!_
 
 _不兼容当前版本的 igroot!_
 
-由于 igroot 是基于 antd v3.x 开发的，在使用前务必精读[从 v3 到 v4](https://ant.design/docs/react/migration-v4-cn)
+#### 全新项目
 
-另外，不建议使用`@ant-design/codemod-v4`进行迁移，尽量将所有业务代码的变化掌握在自己手里。
+1. 卸载`igroot`并安装`antd@4.x`
+2. 在 bsy.json 中配置 `useAntd: true`，打包时会默认将代码中的 igroot 替换为 antd(防止 igroot 全局样式影响)
+3. 将`antd`及`bsy-components`注册在 bsy.json 的`esMoudule`中
 
-#### 修改配置
+_详细配置请在 confluence 内搜索 `bsy.json`，如遇到问题请联系 @韬仔_
 
-在 bsy.json 中配置 `useAntd: true`，打包时会默认将代码中的 igroot 替换为 antd(防止 igroot 全局样式影响)
+#### igroot 及 antd@3.x 并存的老项目中
 
-详细配置请在 confluence 内搜索 `bsy.json`，如遇到问题请联系 @韬仔
+1. 升级`antd`至 V4 版本，务必精读[从 v3 到 v4](https://ant.design/docs/react/migration-v4-cn)
+2. 使用`@ant-design/codemod-v4`进行 V3 版本代码迁移
+3. 无需配置`useAntd`选项
+4. 将`antd`及`bsy-components`注册在 bsy.json 的`esMoudule`中
+5. 样式冲突请自行修改
 
-#### 最佳实践
+_不建议使用工具进行迁移，尽量将所有业务代码的变化掌握在自己手里。_
 
-// TODO
+## 部署方式
+
+#### 文档部署方式
+
+1. 合并到 master 分支后自动构建部署到 GitHub page 上
+2. 内网部署
+   - 执行命令：`npm run docs:build`
+   - 将`dist`目录下所有文件部署到内网机器上
+
+#### npm 发布
+
+1. 执行命令（需要切换至 `npm` 源）
+   ```bash
+   $ npm publish
+   ```
 
 ## 👨‍💻‍ 维护者
 
