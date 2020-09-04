@@ -1,19 +1,28 @@
 import React, { useCallback } from 'react';
 import { Tag } from 'antd';
-import { MultipleValue, SelectTagsProps } from './interface';
+import { SelectTagsProps } from './interface';
 
 const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange }) => {
   const onCheckChange = useCallback(
     (status, v) => {
-      if (mode === 'single') {
-        onChange(status ? v : undefined);
+      if (typeof onChange !== 'function') {
         return;
       }
 
-      const outValue = value as MultipleValue;
-      const newValue = status ? [...outValue, v] : outValue.filter((s) => s !== v);
+      if (mode === 'single' && !Array.isArray(value)) {
+        onChange(status ? v : null);
+        return;
+      }
 
-      onChange(newValue);
+      if (!Array.isArray(value)) {
+        return;
+      }
+
+      if (status) {
+        onChange([...value, v]);
+      } else {
+        onChange(value.filter((s) => s !== v));
+      }
     },
     [mode, onChange, value],
   );
@@ -23,17 +32,22 @@ const SelectTags: React.FC<SelectTagsProps> = ({ mode, options, value, onChange 
       if (mode === 'single') {
         return v === value;
       }
-      return (value as MultipleValue).includes(v);
+
+      if (Array.isArray(value)) {
+        return value.includes(v);
+      }
+
+      return false;
     },
     [mode, value],
   );
 
   return (
     <div>
-      {options.map((item) => (
+      {options.map((item, index) => (
         <Tag.CheckableTag
           style={{ marginBottom: 2, cursor: 'pointer' }}
-          key={item.value}
+          key={`select-tags-${index}`}
           checked={checkStatus(item.value)}
           onChange={(checked) => onCheckChange(checked, item.value)}
         >

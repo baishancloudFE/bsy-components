@@ -2,7 +2,7 @@
 
 [白山云前端业务组件库](https://baishancloudfe.github.io/bsy-components/)
 
-[![Travis CI](http://img.shields.io/travis/baishancloudFE/bsy-components.svg?style=flat-square)](https://travis-ci.com/baishancloudFE/bsy-components) [![](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components) [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
+[![Deploy CI](https://github.com/baishancloudFE/bsy-components/workflows/Deploy%20CI/badge.svg)](https://github.com/baishancloudFE/bsy-components/actions?query=workflow%3A%22Deploy+CI%22) [![NPM version](https://flat.badgen.net/npm/v/bsy-components?icon=npm)](https://www.npmjs.com/package/bsy-components) [![NPM downloads](http://img.shields.io/npm/dt/bsy-components.svg?style=flat-square)](http://npmjs.com/bsy-components)
 
 ## ✨ 特性
 
@@ -71,9 +71,21 @@ _详细配置请在 confluence 内搜索 `bsy.json`，如遇到问题请联系 @
 
 _不建议使用工具进行迁移，尽量将所有业务代码的变化掌握在自己手里。_
 
-#### 最佳实践
+## 部署方式
 
-// TODO
+#### 文档部署方式
+
+1. 合并到 master 分支后自动构建部署到 GitHub page 上
+2. 内网部署
+   - 执行命令：`npm run docs:build`
+   - 将`dist`目录下所有文件部署到内网机器上
+
+#### npm 发布
+
+1. 执行命令（需要切换至 `npm` 源）
+   ```bash
+   $ npm publish
+   ```
 
 ## 👨‍💻‍ 维护者
 

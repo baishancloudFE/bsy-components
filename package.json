@@ -1,6 +1,6 @@
 {
   "name": "bsy-components",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "新版igroot组件库",
   "files": [
     "/lib",
@@ -32,6 +32,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@antv/l7-react": "^2.2.23",
     "xlsx": "^0.16.0"
   },
   "devDependencies": {
