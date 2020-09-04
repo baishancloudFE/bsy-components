@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import mountTest from '../../../tests/mountTest';
-import TextFormItem from '..';
+import mountTest from '../mountTest';
+import TextFormItem from '../../src/text-form-item';
 
 describe('TextFormItem', () => {
   mountTest(TextFormItem);

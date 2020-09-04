@@ -13,4 +13,4 @@ group:
 
 ### Examples
 
-<code src="../../src/text-form-item/demo/demo.jsx" />
+<code src="./demo.jsx" />

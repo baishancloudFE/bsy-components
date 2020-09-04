@@ -13,7 +13,7 @@ group:
 
 ### Examples
 
-<code src="./demo/demo.jsx" />
+<code src="./demo.jsx" />
 
 ### 参数
 

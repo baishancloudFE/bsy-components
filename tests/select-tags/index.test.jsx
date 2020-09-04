@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import SelectTags from '..';
-import mountTest from '../../../tests/mountTest';
+import mountTest from '../mountTest';
+import SelectTags from '../../src/select-tags';
 
 const options = [
   { label: '忍者', value: 'ninja' },
@@ -23,7 +23,7 @@ describe('SelectTags', () => {
     const wrapper = render(<SelectTags mode="single" onChange={onChange} options={options} />);
     const element = wrapper.queryByText('忍者');
     fireEvent.click(element);
-    expect(onChange).toHaveBeenCalledWith('ninja');
+    expect(onChange).toHaveBeenCalledWith(['ninja']);
   });
 
   it('should return value as undefined when deselect and mode is single', () => {
