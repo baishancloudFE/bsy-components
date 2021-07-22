@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@antv/l7-react": "^2.2.23",
-    "xlsx": "^0.16.0"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.1.0",
